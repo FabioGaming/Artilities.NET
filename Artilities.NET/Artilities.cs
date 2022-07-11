@@ -112,11 +112,12 @@ namespace Artilities
             }
             else
             {
-                    responseDictionary.Add("statusCode", statusCode.ToString());
-                    responseDictionary.Add("delayTime", delayTime.ToString());
-                    responseDictionary.Add("word", null);
-                    responseDictionary.Add("description", null);
-                    responseDictionary.Add("raw", response.ToString());
+                responseDictionary.Add("statusCode", statusCode.ToString());
+                responseDictionary.Add("delayTime", delayTime.ToString());
+                responseDictionary.Add("word", null);
+                responseDictionary.Add("description", null);
+                responseDictionary.Add("raw", response.ToString());
+                return responseDictionary;
             }
         }
         private static string GETRequest(string URI)
