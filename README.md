@@ -115,6 +115,7 @@ You can look up artist slang from the artilities database using the `GetDictiona
                 Console.WriteLine("Description: " + DictLookup["description"]);
                 Console.WriteLine("Server response Time: " + DictLookup["delayTime"] + "ms");
                 Console.WriteLine("Server response Code: " + DictLookup["statusCode"]);
+                Console.WriteLine("Raw response: " + DictLookup["raw"]);
             }
             else
             {
