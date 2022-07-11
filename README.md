@@ -11,7 +11,7 @@ You can download the package on [NuGet](https://www.nuget.org/packages/Artilitie
 
 # DOCUMENTATION
 ### Getting an Idea
-You can get a random Idea from the Artilities Database using the `getIdea()` function, this function will return a Dictionary with the following keys: `english`,       - - `russian`, `responseTime`, `responseCode`, `raw`.
+You can get a random Idea from the Artilities Database using the `getIdea()` function, this function will return a Dictionary with the following keys: `english`, `russian`, `responseTime`, `responseCode`, `raw`.
 - `english` returns the result Idea in English
 - `russian` returns the result Idea in Russian (You might need to change the text output to `UTF-16` to be able to see it)
 - `responseTime` returns the time it took for the server to respond in MS
