@@ -6,7 +6,7 @@ using System.Net;
 
 namespace Artilities
 { 
-    public class Artilities
+    public class main
     {
         /// <summary>
         /// Gets a random idea from the Artilities Database
