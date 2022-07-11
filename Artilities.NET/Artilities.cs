@@ -5,11 +5,11 @@ using System.IO;
 using System.Net;
 
 namespace Artilities
-{ 
+{
     public class main
     {
         /// <summary>
-        /// Gets a random idea from the Artilities Database
+        /// Returns a Random Idea from the Artilities Database
         /// </summary>
         /// <returns>
         /// <para>Success: Dictionary containing keys: russian, english, statusCode, delayTime</para>
@@ -18,7 +18,7 @@ namespace Artilities
         public static Dictionary<string, string> GetIdea()
         {
             Dictionary<string, string> responseDictionary = new Dictionary<string, string>();
-            dynamic response = JObject.Parse(GETRequest("https://artilities.herokuapp.com/api/ideas"));
+            dynamic response = JObject.Parse(Request.GET("https://artilities.herokuapp.com/api/ideas"));
             if (response == null)
             {
                 return null;
@@ -40,7 +40,7 @@ namespace Artilities
             return null;
         }
         /// <summary>
-        /// Returns a random Challenge from the artilities database
+        /// Returns a Random Challenge from the Artilities Database
         /// </summary>
         /// <returns>
         /// <para>Success: Dictionary containing keys: russian, english, statusCode, delayTime</para>
@@ -49,7 +49,7 @@ namespace Artilities
         public static Dictionary<string, string> GetChallenge()
         {
             Dictionary<string, string> responseDictionary = new Dictionary<string, string>();
-            dynamic response = JObject.Parse(GETRequest("https://artilities.herokuapp.com/api/challenges"));
+            dynamic response = JObject.Parse(Request.GET("https://artilities.herokuapp.com/api/challenges"));
             if (response == null)
             {
                 return null;
@@ -83,7 +83,7 @@ namespace Artilities
             int counter = 0;
             Dictionary<string, string> responseDictionary = new Dictionary<string, string>();
             query = query.Replace(" ", "%20");
-            dynamic response = JObject.Parse(GETRequest("https://artilities.herokuapp.com/api/dict?query=" + query));
+            dynamic response = JObject.Parse(Request.GET("https://artilities.herokuapp.com/api/dict?query=" + query));
             if (response == null)
             {
                 return null;
@@ -120,7 +120,48 @@ namespace Artilities
                 return responseDictionary;
             }
         }
-        private static string GETRequest(string URI)
+    }
+
+    public class other
+    {
+        /// <summary>
+        /// Returns a Random Banner from the Artilities Database
+        /// </summary>
+        /// <returns>
+        /// <para>Success: Dictionary containing keys: bannerUrl, bannerImage, language, statusCode, delayTime</para>
+        /// <para>Error: Returns null</para>
+        /// </returns>
+        public static Dictionary<string, string> GetBanners()
+        {
+            Dictionary<string, string> responseDictionary = new Dictionary<string, string>();
+            dynamic response = JObject.Parse(Request.GET("https://artilities.herokuapp.com/api/other/banners"));
+            if (response == null)
+            {
+                return null;
+            }
+
+            var bannerUrl = response.details.banner_url;
+            var bannerImage = response.details.banner_image;
+            var language = response.details.language;
+            var statusCode = response.status_code;
+            var delayTime = response.execution_time;
+            if (statusCode == 200)
+            {
+                responseDictionary.Add("bannerUrl", bannerUrl.ToString());
+                responseDictionary.Add("bannerImage", bannerImage.ToString());
+                responseDictionary.Add("language", language.ToString());
+                responseDictionary.Add("statusCode", statusCode.ToString());
+                responseDictionary.Add("delayTime", delayTime.ToString());
+                responseDictionary.Add("raw", response.ToString());
+                return responseDictionary;
+            }
+            return null;
+        }
+    }
+
+    internal class Request
+    {
+        public static string GET(string URI)
         {
             try
             {
@@ -139,6 +180,5 @@ namespace Artilities
                 return null;
             }
         }
-
     }
 }
