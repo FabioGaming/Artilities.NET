@@ -17,6 +17,8 @@ You can get a random Idea from the Artilities Database using the `getIdea()` fun
 - `responseTime` returns the time it took for the server to respond in MS
 - `responseCode` returns the Web Response (in best case its `200`)
 - `raw` returns the raw response JSON
+#### Note
+If there was an error during the request, the Dictionary will return `null`
 ```CSharp
 
 ````
