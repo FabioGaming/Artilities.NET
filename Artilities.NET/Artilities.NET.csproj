@@ -11,7 +11,7 @@
     <PackageTags>artilities, artilities.net, rest, api, wrapper, rest api</PackageTags>
     <PackageProjectUrl>https://github.com/FabioGaming/Artilities.NET</PackageProjectUrl>
     <RepositoryUrl>https://github.com/FabioGaming/Artilities.NET</RepositoryUrl>
-    <Version>1.1.0</Version>
+    <Version>1.1.1</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
