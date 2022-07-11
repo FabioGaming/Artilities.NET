@@ -3,16 +3,16 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Copyright>FabioTheFox</Copyright>
     <Description>An unofficial C# wrapper for the Artilities REST API
 </Description>
     <Authors>FabioTheFox</Authors>
     <Company>FabiDev</Company>
-    <PackageTags>artilities, artilities.net</PackageTags>
+    <PackageTags>artilities, artilities.net, rest, api, wrapper, rest api</PackageTags>
     <PackageProjectUrl>https://github.com/FabioGaming/Artilities.NET</PackageProjectUrl>
     <RepositoryUrl>https://github.com/FabioGaming/Artilities.NET</RepositoryUrl>
-    <PackageLicenseExpression>https://raw.githubusercontent.com/FabioGaming/Artilities.NET/master/LICENSE?token=GHSAT0AAAAAABWPCAVAGT3IS3PNHJX7BHBKYWLQZLQ</PackageLicenseExpression>
+    <Version>1.0.0</Version>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
