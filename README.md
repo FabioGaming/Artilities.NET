@@ -96,4 +96,47 @@ Raw output: {
 ```
 
 ### Looking up artist slang in the Artilities Database
-You can look up artist slang from the artilities database using the `GetDictionaryEntry()` function, it will
+You can look up artist slang from the artilities database using the `GetDictionaryEntry()` function, this function will return a Dictionary with the following keys: `word`, `description`, `delayTime`, `statusCode`, `raw`.
+- `word` returns the first best word result from the database
+- `description` returns the description / meaning of the returned `word`
+- `delayTime` returns the time it took for the server to respond in MS
+- `statusCode` returns the Web Response (in best case its `200`)
+- `raw` returns the raw response JSON
+#### Note
+- If there was an error during the request, the Dictionary will return `null`
+- In case the database has found no words to return, `word` and `description` will return `null`
+- The function `GetDictionaryEntry()` requires a string as search query input
+#### Example Usage
+```CSharp
+            Dictionary<string, string> DictLookup = Artilities.main.GetDictionaryEntry("UFO"); //In this case I'm looking up the term "UFO", which means "up for offer"
+            if (DictLookup != null && DictLookup["word"] != null)
+            {
+                Console.WriteLine("Word: " + DictLookup["word"]);
+                Console.WriteLine("Description: " + DictLookup["description"]);
+                Console.WriteLine("Server response Time: " + DictLookup["delayTime"] + "ms");
+                Console.WriteLine("Server response Code: " + DictLookup["statusCode"]);
+            }
+            else
+            {
+                Console.WriteLine("There was an error in the request.");
+            }
+```
+#### Output
+```
+Word: UFO
+Description: Short for Up For Offers.
+Server response Time: 58ms
+Server response Code: 200
+Raw response: {
+  "status_code": 200,
+  "query_results": [
+    [
+      "UFO",
+      "Short for Up For Offers."
+    ]
+  ],
+  "execution_time": 58
+}
+
+```
+
