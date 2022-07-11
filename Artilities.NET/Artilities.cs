@@ -15,7 +15,7 @@ namespace Artilities
         /// <para>Success: Dictionary containing keys: russian, english, statusCode, delayTime</para>
         /// <para>Error: Returns null</para>
         /// </returns>
-        public Dictionary<string, string> GetIdea()
+        public static Dictionary<string, string> GetIdea()
         {
             Dictionary<string, string> responseDictionary = new Dictionary<string, string>();
             dynamic response = JObject.Parse(GETRequest("https://artilities.herokuapp.com/api/ideas"));
@@ -46,7 +46,7 @@ namespace Artilities
         /// <para>Success: Dictionary containing keys: russian, english, statusCode, delayTime</para>
         /// <para>Error: Returns null</para>
         /// </returns>
-        public Dictionary<string, string> GetChallenge()
+        public static Dictionary<string, string> GetChallenge()
         {
             Dictionary<string, string> responseDictionary = new Dictionary<string, string>();
             dynamic response = JObject.Parse(GETRequest("https://artilities.herokuapp.com/api/challenges"));
@@ -78,7 +78,7 @@ namespace Artilities
         /// <param>Success: Returns Dictionary containing keys: statusCode, delayTime, word, description</param>
         /// <param>Error: Returns null</param>
         /// </returns>
-        public Dictionary<string, string> GetDictionaryEntry(string query)
+        public static Dictionary<string, string> GetDictionaryEntry(string query)
         {
             int counter = 0;
             Dictionary<string, string> responseDictionary = new Dictionary<string, string>();
@@ -115,7 +115,7 @@ namespace Artilities
                 return null;
             }
         }
-        private string GETRequest(string URI)
+        private static string GETRequest(string URI)
         {
             try
             {
