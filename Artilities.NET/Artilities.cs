@@ -77,6 +77,7 @@ namespace Artilities
         /// <returns>
         /// <param>Success: Returns Dictionary containing keys: statusCode, delayTime, word, description</param>
         /// <param>Error: Returns null</param>
+        /// <parm>Will return 'word' and 'description' as null, if word isn't found</parm>
         /// </returns>
         public static Dictionary<string, string> GetDictionaryEntry(string query)
         {
