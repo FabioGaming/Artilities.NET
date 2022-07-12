@@ -2,7 +2,7 @@
 An unofficial C# Wrapper for the [Artilities REST API](https://artilities.github.io/artilities-api/)
 
 # What can this Wrapper do?
-This wrapper currently supports `getting an Idea`, `Getting a challenge Idea`, `Looking up artist slang`. The other API functions like `getting patreons` and `getting banners` will hopefully follow soon.
+This wrapper currently supports `getting an Idea`, `Getting a challenge Idea`, `Looking up artist slang`, `getting Atilities Banners`. The other API functions like `getting patreons` will hopefully follow soon.
 
 # Where can I get the package?
 You can download the package on [NuGet](https://www.nuget.org/packages/Artilities.NET) or soon here on GitHub
