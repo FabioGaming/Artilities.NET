@@ -146,3 +146,6 @@ Raw response: {
 
 ```
 
+### Versions etc
+  <a href="https://www.nuget.org/packages/Artilities.Net/">
+    <img src="https://img.shields.io/nuget/vpre/Artilities.Net.svg?maxAge=2592000?style=plastic" alt="NuGet">
