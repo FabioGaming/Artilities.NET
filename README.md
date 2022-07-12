@@ -23,7 +23,7 @@ You can get a random Idea from the Artilities Database using the `getIdea()` fun
 - `statusCode` returns the Web Response (in best case its `200`)
 - `raw` returns the raw response JSON
 #### Note
-If there was an error during the request, the Dictionary will return `null`
+- If there was an error during the request, the Dictionary will return `null`
 #### Example Usage
 ```CSharp
             Console.OutputEncoding = System.Text.Encoding.UTF8; //This line is to make the console display the russian language
@@ -65,7 +65,7 @@ You can get a random Challenge from Artilities using the `getChallenge()` functi
 - `statusCode` returns the Web Response (in best case its `200`)
 - `raw` returns the raw response JSON
 #### Note
-If there was an error during the request, the Dictionary will return `null`
+- If there was an error during the request, the Dictionary will return `null`
 #### Example Usage
 ```CSharp
             Console.OutputEncoding = System.Text.Encoding.UTF8; //This line is to make the console display the russian language
@@ -142,6 +142,52 @@ Raw response: {
     ]
   ],
   "execution_time": 58
+}
+
+```
+### Get Artilities Banners (Contributed by [Slimakoi](https://github.com/Slimakoi))
+You can get Artilities Banners and their properties using the `getBanners()` function, this function will return a Dictionary with the following keys: `bannerUrl`, `bannerImage`, `delayTime`, `statusCode`, `raw`, `language`.
+- `bannerUrl` returns the URL the banner is linked to
+- `bannerImage` returns the source URL of the banner
+- `language` returns the banners language (usually `null`)
+- `delayTime` returns the time it took for the server to respond in MS
+- `statusCode` returns the Web Response (in best case its `200`)
+- `raw` returns the raw response JSON
+#### Note
+- If there was an error during the request, the Dictionary will return `null`
+- The function `getBanners()` does not share the class `main` like the other functions, instead it uses the class `other`, as it is part of other features of the Artilities API
+#### Example Usage
+```CSharp
+            Dictionary<string, string> bannerDict = Artilities.other.GetBanners();
+            if (bannerDict != null)
+            {
+                Console.WriteLine("Banner Image: " + bannerDict["bannerImage"]);
+                Console.WriteLine("Banner Link: " + bannerDict["bannerUrl"]);
+                Console.WriteLine("Response Code: " + bannerDict["statusCode"]);
+                Console.WriteLine("Response Time: " + bannerDict["delayTime"] + "ms");
+                Console.WriteLine("Language: " + bannerDict["language"]);
+                Console.WriteLine("Raw Json: " + bannerDict["raw"]);
+            }
+            else
+            {
+                Console.WriteLine("There was an error in the request");
+            }
+```
+#### Output
+```
+Banner Image: https://i.imgur.com/pKmfznm.gif
+Banner Link: https://discord.com/invite/u7dBmKyMWa
+Response Code: 200
+Response Time: 57ms
+Language:
+Raw Json: {
+  "status_code": 200,
+  "details": {
+    "banner_url": "https://discord.com/invite/u7dBmKyMWa",
+    "banner_image": "https://i.imgur.com/pKmfznm.gif",
+    "language": ""
+  },
+  "execution_time": 57
 }
 
 ```
