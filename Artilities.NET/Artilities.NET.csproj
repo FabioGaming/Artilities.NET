@@ -9,14 +9,36 @@
     <Authors>FabioTheFox</Authors>
     <Company>FabiDev</Company>
     <PackageTags>artilities, artilities.net, rest, api, wrapper, rest api</PackageTags>
-    <PackageProjectUrl>https://github.com/FabioGaming/Artilities.NET</PackageProjectUrl>
+    <PackageProjectUrl>https://artilities.herokuapp.com</PackageProjectUrl>
     <RepositoryUrl>https://github.com/FabioGaming/Artilities.NET</RepositoryUrl>
-    <Version>1.1.5</Version>
+    <Version>1.1.6</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageReleaseNotes></PackageReleaseNotes>
+    <NeutralLanguage>en</NeutralLanguage>
+    <RepositoryType>GIT</RepositoryType>
+    <PackageIcon>Artilities.NET-Logo.png</PackageIcon>
+    <PackageIconUrl />
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Artilities.NET-Logo.png" />
+    <None Remove="Artilities.NET-Logo.png" />
+    <None Include="Artilities.NET-Logo.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\..\Desktop\Artilities.NET-Logo.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

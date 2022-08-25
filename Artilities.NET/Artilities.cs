@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -157,9 +158,137 @@ namespace Artilities
                 return responseDictionary;
             }
             return null;
+            
         }
     }
+    public class users
+    {
+        public static string devkey;
+        public static string userID;
 
+        /// <summary>
+        /// Returns the saved challenges of a user
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns>
+        ///<para>Success: Dictionary containing keys: raw, challenges, statusCode, delayTime</para>
+        /// </returns>
+        public static Dictionary<string,string> getChallenges(string user = null)
+        {
+            if(String.IsNullOrEmpty(user)) { user = userID; }
+            Dictionary<string, string> responseDictionary = new Dictionary<string, string>();
+            dynamic response = JObject.Parse(Request.UGET("https://artilities.herokuapp.com/api/user/getinfo", user));
+            var delayTime = response.execution_time;
+            var statusCode = response.status_code;
+            if(statusCode == 200)
+            {
+                List<dynamic> challengeList = new List<dynamic>();
+                foreach (var item in response.data.challenges)
+                {
+                    challengeList.Add(item);
+                }
+                string challenges = string.Join(", ", challengeList.ToArray());
+
+
+                responseDictionary.Add("delayTime", delayTime.ToString());
+                responseDictionary.Add("statusCode", statusCode.ToString());
+                responseDictionary.Add("challenges", challenges);
+                responseDictionary.Add("raw", response.ToString());
+            } else
+            {
+                responseDictionary.Add("delayTime", delayTime.ToString());
+                responseDictionary.Add("statusCode", statusCode.ToString());
+                responseDictionary.Add("raw", response.ToString());
+                responseDictionary.Add("challenges", null);
+            }
+
+            return responseDictionary;
+        }
+
+        /// <summary>
+        /// Returns the saved colors of a user
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns>
+        ///<para>Success: Dictionary containing keys: raw, colors, statusCode, delayTime</para>
+        /// </returns>
+        public static Dictionary<string,string> getColors(string user = null)
+        {
+            if (String.IsNullOrEmpty(user)) { user = userID; }
+            Dictionary<string, string> responseDictionary = new Dictionary<string, string>();
+            dynamic response = JObject.Parse(Request.UGET("https://artilities.herokuapp.com/api/user/getinfo", user));
+            var delayTime = response.execution_time;
+            var statusCode = response.status_code;
+            if (statusCode == 200)
+            {
+                List<dynamic> colorList = new List<dynamic>();
+                foreach (var colorbatch in response.data.colors)
+                {
+                    foreach (var color in JArray.Parse(colorbatch.ToString()))
+                    {
+                        colorList.Add(color);
+                    }
+
+                }
+
+
+                string colors = string.Join(", ", colorList.ToArray());
+
+                responseDictionary.Add("delayTime", delayTime.ToString());
+                responseDictionary.Add("statusCode", statusCode.ToString());
+                responseDictionary.Add("colors", colors);
+                responseDictionary.Add("raw", response.ToString());
+            }
+            else
+            {
+                responseDictionary.Add("delayTime", delayTime.ToString());
+                responseDictionary.Add("statusCode", statusCode.ToString());
+                responseDictionary.Add("raw", response.ToString());
+                responseDictionary.Add("colors", null);
+            }
+
+            return responseDictionary;
+        }
+
+        /// <summary>
+        /// Returns the saved ideas of a user
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns>
+        ///<para>Success: Dictionary containing keys: raw, ideas, statusCode, delayTime</para>
+        /// </returns>
+        public static Dictionary<string, string> getIdeas(string user = null)
+        {
+            if (String.IsNullOrEmpty(user)) { user = userID; }
+            Dictionary<string, string> responseDictionary = new Dictionary<string, string>();
+            dynamic response = JObject.Parse(Request.UGET("https://artilities.herokuapp.com/api/user/getinfo", user));
+            var delayTime = response.execution_time;
+            var statusCode = response.status_code;
+            if (statusCode == 200)
+            {
+                List<dynamic> ideaList = new List<dynamic>();
+                foreach (var item in response.data.ideas)
+                {
+                    ideaList.Add(item);
+                }
+                string ideas = string.Join(", ", ideaList.ToArray());
+
+                responseDictionary.Add("delayTime", delayTime.ToString());
+                responseDictionary.Add("statusCode", statusCode.ToString());
+                responseDictionary.Add("ideas", ideas);
+                responseDictionary.Add("raw", response.ToString());
+            }
+            else
+            {
+                responseDictionary.Add("delayTime", delayTime.ToString());
+                responseDictionary.Add("statusCode", statusCode.ToString());
+                responseDictionary.Add("raw", response.ToString());
+                responseDictionary.Add("ideas", null);
+            }
+
+            return responseDictionary;
+        }
+    }
     internal class Request
     {
         public static string GET(string URI)
@@ -175,9 +304,34 @@ namespace Artilities
                     return reader.ReadToEnd();
                 }
             }
-            catch
+            catch(Exception e)
             {
                 Trace.WriteLine("Server response failed");
+                throw new Exception("Something went wrong during the request. Error: " + e);
+            }
+        }
+        public static string UGET(string URI, string searched_user)
+        {
+
+            try
+            {
+                if(String.IsNullOrEmpty(users.userID)) { throw new Exception("Please Specify a userID for the DevKey!"); }
+                if(String.IsNullOrEmpty(users.devkey)) { throw new Exception("Please specify a DevKey!"); }
+                URI = URI + $"/?devkey={users.devkey}&userid={users.userID}&searched_userid={searched_user}";
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URI);
+                request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                using (Stream stream = response.GetResponseStream())
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    return reader.ReadToEnd();
+                }
+            }
+            catch(Exception e)
+            {
+
+                Trace.WriteLine("Server response failed");
+                throw new Exception("Something went wrong during the request. Error: " + e);
                 return null;
             }
         }
