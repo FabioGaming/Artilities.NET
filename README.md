@@ -2,16 +2,15 @@
 An unofficial C# Wrapper for the [Artilities REST API](https://artilities.github.io/artilities-api/)
 
 # What can this Wrapper do?
-This wrapper currently supports `getting an Idea`, `Getting a challenge Idea`, `Looking up artist slang`, `getting Atilities Banners`. The other API functions like `getting patreons` will hopefully follow soon.
+This wrapper currently supports `getting an Idea`, `Getting a challenge Idea`, `Looking up artist slang`, `getting Atilities Banners`, `getting a users saved Ideas, Challenges and Colors`. The other API functions like `getting patreons` will hopefully follow soon.
 
 # Where can I get the package?
 You can download the package on [NuGet](https://www.nuget.org/packages/Artilities.NET) or soon here on GitHub
 You can also: 
-- Type `Install-Package Artilities.NET -Version 1.1.5` into the Package Manager
-- Type `dotnet add package Artilities.NET --version 1.1.5` into the command prompt, note that you need to have `dotnet` installed
-- Reference the Dependency using `<PackageReference Include="Artilities.NET" Version="1.1.5" />`
-
-
+- Type `Install-Package Artilities.NET -Version 1.1.6` into the Package Manager
+- Type `dotnet add package Artilities.NET --version 1.1.6` into the command prompt, note that you need to have `dotnet` installed
+- Reference the Dependency using `<PackageReference Include="Artilities.NET" Version="1.1.6" />`
+- Install the package in your Editors NuGet Package Manager
 
 
 # DOCUMENTATION
@@ -189,7 +188,250 @@ Raw Json: {
   },
   "execution_time": 57
 }
+```
 
+#### Get Artilities User Information (v1.1.6 and above)
+Since Artilities 1.1.6 you can get someones saved favorite ideas, challenges and colors
+#### Note
+- Artilities.NET 1.1.6 adds the ability to look up a users saved stuff, tho this requires a `devKey`!
+- To get a devKey you must apply for it on the Artilities Discord, which can be found on the [Website](https://artilities.herokuapp.com)
+#### Using the devKey
+```CSharp
+            Artilities.users.devkey = "yourKey"; //Input your devKey here!
+            Artilities.users.userID = "yourID"; //If you registered for a devKey, your Discord ID will be registered to this key, so make sure to input your discord ID here
+```
+### Get a users saved Ideas
+You can get someones saved ideas using the `getIdeas()` function, this function will return a Dictionary with the following keys: `delayTime`, `statusCode`, `ideas`, `raw`
+- `delayTime` will return the time it took for the server to respond (in ms)
+- `statusCode` will return the HTTP response code (in best case `200` (note that this can return `403`))
+- `ideas` will return the list of saved ideas (it will return a `string` not an `array`!)
+- `raw` will return the raw JSON output of the request
+#### Note
+- The function `getIdeas()` belongs to the `users` class, so make sure you call it using `Artilities.users.getIdeas()`.
+- `getIdeas()` accepts 1 `string` argument, this being the `userID` you want to look up, leaving this field empty, will make the program use the devKeys `userID`
+- Profiles can be set to private, if this is the case you can't access the users saved data, and `statusCode` will return `403`, so make sure you check for that!
+- If you lookup your own userID, there will be a `private` key in the JSON response, which is NOT included in Artilities.NET 1.1.6
+#### Example Usage
+```CSharp
+            Artilities.users.devkey = "devKey";
+            Artilities.users.userID = "userID";
+            Dictionary<string, string> ideaDictionary = Artilities.users.getIdeas(); // In this case I don't input any user, which will make Artilities.NET use Artilities.user.userID as lookup query!
+            if(ideaDictionary["statusCode"] != "200")
+            {
+                if(ideaDictionary["statusCode"] == "403")
+                {
+                    Console.WriteLine("This profile is Private.");
+                } else
+                {
+                    Console.WriteLine("Something went wrong!");
+                }
+            } else
+            {
+                Console.WriteLine("Server response: " + ideaDictionary["statusCode"]);
+                Console.WriteLine("Server response Time: " + ideaDictionary["delayTime"] + "ms");
+                Console.WriteLine("Saved Ideas:");
+                string[] ideas = ideaDictionary["ideas"].Split(new[] { ", " }, StringSplitOptions.RemoveEmptyEntries); // This is how to split the output string into an array!
+                foreach(string idea in ideas)
+                {
+                    Console.WriteLine(idea);
+                }
+                Console.WriteLine("Raw JSON: " + ideaDictionary["raw"]);
+            }
+```
+#### Output
+```
+Server response: 200
+Server response Time: 58ms
+Saved Ideas:
+Pinocchio lost his nose
+Raw JSON: {
+  "status_code": 200,
+  "data": {
+    "ideas": [
+      "Pinocchio lost his nose"
+    ],
+    "challenges": [
+      "draw using anything but your hands",
+      "draw with two hands at once"
+    ],
+    "colors": [
+      [
+        "#2855a7",
+        "#58b3aa",
+        "#3166b9",
+        "#3a3695"
+      ],
+      [
+        "#a6d4aa",
+        "#d4166d",
+        "#4108c7",
+        "#7ba55c"
+      ]
+    ],
+    "settings": {
+      "private": false
+    }
+  },
+  "execution_time": 58
+}
+```
+### Get a users saved challenges
+You can get someones saved challenges using the `getChallenges()` function, this function will return a Dictionary with the following keys: `delayTime`, `statusCode`, `challenges`, `raw`
+- `delayTime` will return the time it took for the server to respond (in ms)
+- `statusCode` will return the HTTP response code (in best case `200` (note that this can return `403`))
+- `challenges` will return the list of saved challenges (it will return a `string` not an `array`!)
+- `raw` will return the raw JSON output of the request
+#### Note
+- The function `getChallenges()` belongs to the `users` class, so make sure you call it using `Artilities.users.getChallenges()`.
+- `getChallenges()` accepts 1 `string` argument, this being the `userID` you want to look up, leaving this field empty, will make the program use the devKeys `userID`
+- Profiles can be set to private, if this is the case you can't access the users saved data, and `statusCode` will return `403`, so make sure you check for that!
+- If you lookup your own userID, there will be a `private` key in the JSON response, which is NOT included in Artilities.NET 1.1.6
+#### Example Usage
+```CSharp
+            Artilities.users.devkey = "devKey";
+            Artilities.users.userID = "userID";
+            Dictionary<string, string> challengeDictionary = Artilities.users.getChallenges(); // In this case I don't input any user, which will make Artilities.NET use Artilities.user.userID as lookup query!
+            if(challengeDictionary["statusCode"] != "200")
+            {
+                if(challengeDictionary["statusCode"] == "403")
+                {
+                    Console.WriteLine("This profile is Private.");
+                } else
+                {
+                    Console.WriteLine("Something went wrong!");
+                }
+            } else
+            {
+                Console.WriteLine("Server response: " + challengeDictionary["statusCode"]);
+                Console.WriteLine("Server response Time: " + challengeDictionary["delayTime"] + "ms");
+                Console.WriteLine("Saved challenges:");
+                string[] ideas = challengeDictionary["challenges"].Split(new[] { ", " }, StringSplitOptions.RemoveEmptyEntries); // This is how to split the output string into an array!
+                foreach(string idea in ideas)
+                {
+                    Console.WriteLine(idea);
+                }
+                Console.WriteLine("Raw JSON: " + challengeDictionary["raw"]);
+            }
+```
+#### Output
+```
+Server response: 200
+Server response Time: 57ms
+Saved challenges:
+draw using anything but your hands
+draw with two hands at once
+Raw JSON: {
+  "status_code": 200,
+  "data": {
+    "ideas": [
+      "Pinocchio lost his nose"
+    ],
+    "challenges": [
+      "draw using anything but your hands",
+      "draw with two hands at once"
+    ],
+    "colors": [
+      [
+        "#2855a7",
+        "#58b3aa",
+        "#3166b9",
+        "#3a3695"
+      ],
+      [
+        "#a6d4aa",
+        "#d4166d",
+        "#4108c7",
+        "#7ba55c"
+      ]
+    ],
+    "settings": {
+      "private": false
+    }
+  },
+  "execution_time": 57
+}
+```
+### Get a users saved colors
+You can get someones saved challenges using the `getColors()` function, this function will return a Dictionary with the following keys: `delayTime`, `statusCode`, `colors`, `raw`
+- `delayTime` will return the time it took for the server to respond (in ms)
+- `statusCode` will return the HTTP response code (in best case `200` (note that this can return `403`))
+- `colors` will return the list of saved challenges (it will return a `string` not an `array`!)
+- `raw` will return the raw JSON output of the request
+#### Note
+- The function `getColors()` belongs to the `users` class, so make sure you call it using `Artilities.users.getColors()`.
+- `getColors()` accepts 1 `string` argument, this being the `userID` you want to look up, leaving this field empty, will make the program use the devKeys `userID`
+- Profiles can be set to private, if this is the case you can't access the users saved data, and `statusCode` will return `403`, so make sure you check for that!
+- If you lookup your own userID, there will be a `private` key in the JSON response, which is NOT included in Artilities.NET 1.1.6
+#### Example Usage
+```CSharp
+            Artilities.users.devkey = "devKey";
+            Artilities.users.userID = "userID";
+            Dictionary<string, string> colorDictionary = Artilities.users.getColors(); // In this case I don't input any user, which will make Artilities.NET use Artilities.user.userID as lookup query!
+            if(colorDictionary["statusCode"] != "200")
+            {
+                if(colorDictionary["statusCode"] == "403")
+                {
+                    Console.WriteLine("This profile is Private.");
+                } else
+                {
+                    Console.WriteLine("Something went wrong!");
+                }
+            } else
+            {
+                Console.WriteLine("Server response: " + colorDictionary["statusCode"]);
+                Console.WriteLine("Server response Time: " + colorDictionary["delayTime"] + "ms");
+                Console.WriteLine("Saved challenges:");
+                string[] ideas = colorDictionary["colors"].Split(new[] { ", " }, StringSplitOptions.RemoveEmptyEntries); // This is how to split the output string into an array!
+                foreach(string idea in ideas)
+                {
+                    Console.WriteLine(idea);
+                }
+                Console.WriteLine("Raw JSON: " + colorDictionary["raw"]);
+            }
+```
+#### Output
+```
+Server response: 200
+Server response Time: 53ms
+Saved challenges:
+#2855a7
+#58b3aa
+#3166b9
+#3a3695
+#a6d4aa
+#d4166d
+#4108c7
+#7ba55c
+Raw JSON: {
+  "status_code": 200,
+  "data": {
+    "ideas": [
+      "Pinocchio lost his nose"
+    ],
+    "challenges": [
+      "draw using anything but your hands",
+      "draw with two hands at once"
+    ],
+    "colors": [
+      [
+        "#2855a7",
+        "#58b3aa",
+        "#3166b9",
+        "#3a3695"
+      ],
+      [
+        "#a6d4aa",
+        "#d4166d",
+        "#4108c7",
+        "#7ba55c"
+      ]
+    ],
+    "settings": {
+      "private": false
+    }
+  },
+  "execution_time": 53
+}
 ```
 
 ### Versions etc
