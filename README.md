@@ -195,6 +195,9 @@ Since Artilities 1.1.6 you can get someones saved favorite ideas, challenges and
 #### Note
 - Artilities.NET 1.1.6 adds the ability to look up a users saved stuff, tho this requires a `devKey`!
 - To get a devKey you must apply for it on the Artilities Discord, which can be found on the [Website](https://artilities.herokuapp.com)
+- If a user has been found the `statusCode` key, will return `200`
+- If a user has been found but have their profile on private, the `statusCode` key will return `403`
+- If a user doesn't exist as an Artilities Account, the `statusCode` key will return `404`
 #### Using the devKey
 ```CSharp
             Artilities.users.devkey = "yourKey"; //Input your devKey here!
