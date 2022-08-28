@@ -396,7 +396,7 @@ You can get someones saved challenges using the `getColors()` function, this fun
 ```
 Server response: 200
 Server response Time: 53ms
-Saved challenges:
+Saved Colors:
 #2855a7
 #58b3aa
 #3166b9
