@@ -11,7 +11,7 @@
     <PackageTags>artilities, artilities.net, rest, api, wrapper, rest api</PackageTags>
     <PackageProjectUrl>https://artilities.herokuapp.com</PackageProjectUrl>
     <RepositoryUrl>https://github.com/FabioGaming/Artilities.NET</RepositoryUrl>
-    <Version>1.1.6</Version>
+    <Version>1.2.0</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes></PackageReleaseNotes>
