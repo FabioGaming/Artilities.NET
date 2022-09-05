@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Artilities.v2
 {
@@ -64,7 +66,7 @@ namespace Artilities.v2
                 public Banner(JObject json)
                 {
                     bannerUrl = (string?)json["details"]["banner_url"];
-                    bannerImage = (string?)json["details"]["bannerImage"];
+                    bannerImage = (string?)json["details"]["banner_image"];
                     language = (string?)json["details"]["language"];
                     statusCode = (int?)json["status_code"];
                     delayTime = (int?)json["execution_time"];
@@ -83,18 +85,37 @@ namespace Artilities.v2
             {
                 public UserInfo(JObject json)
                 {
-                    ideas = (JArray?)json["data"]["ideas"];
-                    challenges = (JArray?)json["data"]["challenges"];
-                    colors = (JArray?)json["data"]["colors"];
+                    List<string> ideaList = new List<string>();
+                    List<string> challengeList = new List<string>();
+                    List<string> colorList = new List<string>();
+                    foreach(var idea in json["data"]["ideas"])
+                    {
+                        ideaList.Add(idea.ToString());
+                    }
+                    foreach(var challenge in json["data"]["challenges"])
+                    {
+                        challengeList.Add(challenge.ToString());
+                    }
+                    foreach (var colorbatch in json["data"]["colors"])
+                    {
+                        foreach (var color in JArray.Parse(colorbatch.ToString()))
+                        {
+                            colorList.Add(color.ToString());
+                        }
+
+                    }
+                    ideas = (string[]?)ideaList.ToArray();
+                    challenges = (string[]?)challengeList.ToArray();
+                    colors = (string[]?)colorList.ToArray();
                     isPrivate = (bool?)json["data"]["settings"]["private"];
                     statusCode = (int?)json["status_code"];
                     delayTime = (int?)json["execution_time"];
                     raw = json;
                 }
 
-                public JArray? ideas { get; set; }
-                public JArray? challenges { get; set; }
-                public JArray? colors { get; set; }
+                public string[]? ideas { get; set; }
+                public string[]? challenges { get; set; }
+                public string[]? colors { get; set; }
                 public bool? isPrivate { get; set; }
                 public int? statusCode { get; set; }
                 public int? delayTime { get; set; }

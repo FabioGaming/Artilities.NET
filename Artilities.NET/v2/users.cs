@@ -76,7 +76,6 @@ namespace Artilities.v2
                 {
                     Trace.WriteLine("Server response failed");
                     throw new Exception("Something went wrong during the request. Error: " + e);
-                    return null;
                 }
             }
         }

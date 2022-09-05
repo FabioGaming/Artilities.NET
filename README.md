@@ -7,13 +7,17 @@ This wrapper currently supports `getting an Idea`, `Getting a challenge Idea`, `
 # Where can I get the package?
 You can download the package on [NuGet](https://www.nuget.org/packages/Artilities.NET) or soon here on GitHub
 You can also: 
-- Type `Install-Package Artilities.NET -Version 1.1.6` into the Package Manager
-- Type `dotnet add package Artilities.NET --version 1.1.6` into the command prompt, note that you need to have `dotnet` installed
-- Reference the Dependency using `<PackageReference Include="Artilities.NET" Version="1.1.6" />`
+- Type `Install-Package Artilities.NET -Version 1.2.0` into the Package Manager
+- Type `dotnet add package Artilities.NET --version 1.2.0` into the command prompt, note that you need to have `dotnet` installed
+- Reference the Dependency using `<PackageReference Include="Artilities.NET" Version="1.2.0" />`
 - Install the package in your Editors NuGet Package Manager
 
 
 # DOCUMENTATION
+## Artilities 1.2.0 has added a V2 wrapper
+## If you want to use Artilities.NET v2, consider reading the v2 docs right [HERE](https://github.com/FabioGaming/Artilities.NET/blob/master/docsV2.md)
+
+
 ### Getting an Idea
 You can get a random Idea from the Artilities Database using the `getIdea()` function, this function will return a Dictionary with the following keys: `english`, `russian`, `delayTime`, `statusCode`, `raw`.
 - `english` returns the result Idea in English
@@ -213,7 +217,7 @@ You can get someones saved ideas using the `getIdeas()` function, this function 
 - The function `getIdeas()` belongs to the `users` class, so make sure you call it using `Artilities.users.getIdeas()`.
 - `getIdeas()` accepts 1 `string` argument, this being the `userID` you want to look up, leaving this field empty, will make the program use the devKeys `userID`
 - Profiles can be set to private, if this is the case you can't access the users saved data, and `statusCode` will return `403`, so make sure you check for that!
-- If you lookup your own userID, there will be a `private` key in the JSON response, which is NOT included in Artilities.NET 1.1.6
+- If you lookup your own userID, there will be a `private` key in the JSON response, which is NOT included in Artilities.NET 1.1.6. If you want the private key to be usable, consider using [Artilities.NET V2](https://github.com/FabioGaming/Artilities.NET/blob/master/docsV2.md)
 #### Example Usage
 ```CSharp
             Artilities.users.devkey = "devKey";
@@ -288,7 +292,7 @@ You can get someones saved challenges using the `getChallenges()` function, this
 - The function `getChallenges()` belongs to the `users` class, so make sure you call it using `Artilities.users.getChallenges()`.
 - `getChallenges()` accepts 1 `string` argument, this being the `userID` you want to look up, leaving this field empty, will make the program use the devKeys `userID`
 - Profiles can be set to private, if this is the case you can't access the users saved data, and `statusCode` will return `403`, so make sure you check for that!
-- If you lookup your own userID, there will be a `private` key in the JSON response, which is NOT included in Artilities.NET 1.1.6
+- If you lookup your own userID, there will be a `private` key in the JSON response, which is NOT included in Artilities.NET 1.1.6. If you want the private key to be usable, consider using [Artilities.NET V2](https://github.com/FabioGaming/Artilities.NET/blob/master/docsV2.md)
 #### Example Usage
 ```CSharp
             Artilities.users.devkey = "devKey";
@@ -364,7 +368,7 @@ You can get someones saved challenges using the `getColors()` function, this fun
 - The function `getColors()` belongs to the `users` class, so make sure you call it using `Artilities.users.getColors()`.
 - `getColors()` accepts 1 `string` argument, this being the `userID` you want to look up, leaving this field empty, will make the program use the devKeys `userID`
 - Profiles can be set to private, if this is the case you can't access the users saved data, and `statusCode` will return `403`, so make sure you check for that!
-- If you lookup your own userID, there will be a `private` key in the JSON response, which is NOT included in Artilities.NET 1.1.6
+- If you lookup your own userID, there will be a `private` key in the JSON response, which is NOT included in Artilities.NET 1.1.6. If you want the private key to be usable, consider using [Artilities.NET V2](https://github.com/FabioGaming/Artilities.NET/blob/master/docsV2.md)
 #### Example Usage
 ```CSharp
             Artilities.users.devkey = "devKey";
@@ -383,7 +387,7 @@ You can get someones saved challenges using the `getColors()` function, this fun
             {
                 Console.WriteLine("Server response: " + colorDictionary["statusCode"]);
                 Console.WriteLine("Server response Time: " + colorDictionary["delayTime"] + "ms");
-                Console.WriteLine("Saved challenges:");
+                Console.WriteLine("Saved colors:");
                 string[] ideas = colorDictionary["colors"].Split(new[] { ", " }, StringSplitOptions.RemoveEmptyEntries); // This is how to split the output string into an array!
                 foreach(string idea in ideas)
                 {
