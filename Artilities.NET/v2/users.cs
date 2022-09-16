@@ -11,6 +11,7 @@ namespace Artilities.v2
 {
     public class users
     {
+        private static string APIEndPoint = "https://artilities-web-api.vercel.app/api/";
         public static string devkey;
         public static string userID;
 
@@ -24,7 +25,7 @@ namespace Artilities.v2
         public static Responses.UserInfo? GetUserInfo(string user = null)
         {
             if (String.IsNullOrEmpty(user)) { user = userID; }
-            dynamic response = JObject.Parse(Request.UGET("https://artilities.herokuapp.com/api/user/getinfo", user));
+            dynamic response = JObject.Parse(Request.UGET(APIEndPoint + "user/getinfo", user));
             if (response["status_code"] == 200)
             {
                 Responses.UserInfo r = new Responses.UserInfo(response);
