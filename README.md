@@ -7,9 +7,9 @@ This wrapper currently supports `getting an Idea`, `Getting a challenge Idea`, `
 # Where can I get the package?
 You can download the package on [NuGet](https://www.nuget.org/packages/Artilities.NET) or soon here on GitHub
 You can also: 
-- Type `Install-Package Artilities.NET -Version 1.2.0` into the Package Manager
-- Type `dotnet add package Artilities.NET --version 1.2.0` into the command prompt, note that you need to have `dotnet` installed
-- Reference the Dependency using `<PackageReference Include="Artilities.NET" Version="1.2.0" />`
+- Type `Install-Package Artilities.NET -Version 1.2.1` into the Package Manager
+- Type `dotnet add package Artilities.NET --version 1.2.1` into the command prompt, note that you need to have `dotnet` installed
+- Reference the Dependency using `<PackageReference Include="Artilities.NET" Version="1.2.1" />`
 - Install the package in your Editors NuGet Package Manager
 
 
