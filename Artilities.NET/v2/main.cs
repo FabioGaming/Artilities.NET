@@ -8,14 +8,14 @@ namespace Artilities.v2
 {
     public class main
     {
-        private static string APIEndPoint = "https://artilities-web-api.vercel.app/api/";
+        //private static string APIEndPoint = "https://artilities-web-api.vercel.app/api/";
 
         /// <summary>
         /// Returns a Random Idea from the Artilities Database
         /// </summary>
         public static Responses.Idea? GetIdea()
         {
-            dynamic response = JObject.Parse(Request.GET(APIEndPoint + "ideas"));
+            dynamic response = JObject.Parse(Request.GET("https://artilities-web-api.vercel.app/api/ideas"));
             if (response == null)
             {
                 return null;
@@ -33,7 +33,7 @@ namespace Artilities.v2
         /// </summary>
         public static Responses.Challenge? GetChallenge()
         {
-            dynamic response = JObject.Parse(Request.GET(APIEndPoint + "challenges"));
+            dynamic response = JObject.Parse(Request.GET("https://artilities-web-api.vercel.app/api/challenges"));
             if (response == null)
             {
                 return null;
@@ -55,7 +55,7 @@ namespace Artilities.v2
         {
             int counter = 0;
             query = query.Replace(" ", "%20");
-            dynamic response = JObject.Parse(Request.GET(APIEndPoint + "dict?query=" + query));
+            dynamic response = JObject.Parse(Request.GET("https://artilities-web-api.vercel.app/api/dict?query=" + query));
             if (response == null)
             {
                 return null;

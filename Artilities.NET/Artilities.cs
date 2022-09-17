@@ -18,12 +18,12 @@ namespace Artilities
         /// </returns>
         /// 
 
-        private static string APIEndPoint = "https://artilities-web-api.vercel.app/api/";
+        //private static string APIEndPoint = "https://artilities-web-api.vercel.app/api/";
 
         public static Dictionary<string, string> GetIdea()
         {
             Dictionary<string, string> responseDictionary = new Dictionary<string, string>();
-            dynamic response = JObject.Parse(Request.GET(APIEndPoint + "ideas"));
+            dynamic response = JObject.Parse(Request.GET("https://artilities-web-api.vercel.app/api/ideas"));
             if (response == null)
             {
                 return null;
@@ -54,7 +54,7 @@ namespace Artilities
         public static Dictionary<string, string> GetChallenge()
         {
             Dictionary<string, string> responseDictionary = new Dictionary<string, string>();
-            dynamic response = JObject.Parse(Request.GET(APIEndPoint + "challenges"));
+            dynamic response = JObject.Parse(Request.GET("https://artilities-web-api.vercel.app/api/challenges"));
             if (response == null)
             {
                 return null;
@@ -89,7 +89,7 @@ namespace Artilities
             int counter = 0;
             Dictionary<string, string> responseDictionary = new Dictionary<string, string>();
             query = query.Replace(" ", "%20");
-            dynamic response = JObject.Parse(Request.GET(APIEndPoint + "dict?query=" + query));
+            dynamic response = JObject.Parse(Request.GET("https://artilities-web-api.vercel.app/api/dict?query=" + query));
             if (response == null)
             {
                 return null;
@@ -131,7 +131,7 @@ namespace Artilities
     public class other
     {
 
-        private static string APIEndPoint = "https://artilities-web-api.vercel.app/api/";
+        //private static string APIEndPoint = "https://artilities-web-api.vercel.app/api/";
         /// <summary>
         /// Returns a Random Banner from the Artilities Database
         /// </summary>
@@ -142,7 +142,7 @@ namespace Artilities
         public static Dictionary<string, string> GetBanners()
         {
             Dictionary<string, string> responseDictionary = new Dictionary<string, string>();
-            dynamic response = JObject.Parse(Request.GET(APIEndPoint + "other/banners"));
+            dynamic response = JObject.Parse(Request.GET("https://artilities-web-api.vercel.app/api/other/banners"));
             if (response == null)
             {
                 return null;
@@ -169,7 +169,7 @@ namespace Artilities
     }
     public class users
     {
-        private static string APIEndPoint = "https://artilities-web-api.vercel.app/api/";
+        //private static string APIEndPoint = "https://artilities-web-api.vercel.app/api/";
         public static string devkey;
         public static string userID;
 
@@ -184,7 +184,7 @@ namespace Artilities
         {
             if(String.IsNullOrEmpty(user)) { user = userID; }
             Dictionary<string, string> responseDictionary = new Dictionary<string, string>();
-            dynamic response = JObject.Parse(Request.UGET(APIEndPoint + "user/getinfo", user));
+            dynamic response = JObject.Parse(Request.UGET("https://artilities-web-api.vercel.app/api/user/getinfo", user));
             var delayTime = response.execution_time;
             var statusCode = response.status_code;
             if(statusCode == 200)
@@ -223,7 +223,7 @@ namespace Artilities
         {
             if (String.IsNullOrEmpty(user)) { user = userID; }
             Dictionary<string, string> responseDictionary = new Dictionary<string, string>();
-            dynamic response = JObject.Parse(Request.UGET(APIEndPoint + "user/getinfo", user));
+            dynamic response = JObject.Parse(Request.UGET("https://artilities-web-api.vercel.app/api/user/getinfo", user));
             var delayTime = response.execution_time;
             var statusCode = response.status_code;
             if (statusCode == 200)
@@ -268,7 +268,7 @@ namespace Artilities
         {
             if (String.IsNullOrEmpty(user)) { user = userID; }
             Dictionary<string, string> responseDictionary = new Dictionary<string, string>();
-            dynamic response = JObject.Parse(Request.UGET(APIEndPoint + "user/getinfo", user));
+            dynamic response = JObject.Parse(Request.UGET("https://artilities-web-api.vercel.app/api/user/getinfo", user));
             var delayTime = response.execution_time;
             var statusCode = response.status_code;
             if (statusCode == 200)
